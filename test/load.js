@@ -4,7 +4,7 @@
 
 var data = require('./data');
 var frida = require('frida');
-var loadScript = require('..');
+var load = require('..');
 var should = require('should');
 var spawn = require('child_process').spawn;
 
@@ -29,7 +29,7 @@ describe('Load', function () {
   it('should support loading a common-js module', function (done) {
     var script, exp;
 
-    frida.load(require.resolve('./cjs'))
+    load(require.resolve('./cjs'))
     .then(function (source) {
       return session.createScript(source);
     })
@@ -53,10 +53,10 @@ describe('Load', function () {
       script.events.listen('message', function (message) {
         message.type.should.equal('error');
         message.description.should.equal('Error: Oops!');
-        message.stack.should.equal('Error: Oops!\n    at index.js:15:1');
+        message.stack.should.equal('Error: Oops!\n    at index.js:15:13');
         message.fileName.should.equal('index.js');
         message.lineNumber.should.equal(15);
-        message.columnNumber.should.equal(1);
+        message.columnNumber.should.equal(13);
         done();
       });
       return exp.crashLater();
