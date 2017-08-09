@@ -1,3 +1,7 @@
+`frida-load` has been deprecated. You should use [frida-compile](https://github.com/frida/frida-compile).
+
+-----
+
 # frida-load
 
 Load a Frida script comprised of one or more Node.js modules.
